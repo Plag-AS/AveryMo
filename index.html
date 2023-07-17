@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html x-data="{colorMode: localStorage.getItem('colorMode') || localStorage.setItem('colorMode', 'light')}" x-init="$watch('colorMode', val => localStorage.setItem('colorMode', val))" x-bind:class="{'dark': colorMode === 'dark' || (colorMode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth h-full overflow-y-auto">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AVERYMO</title>
+  <!-- favicon  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+  <!--- custom css link -->
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <!--- google font link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Comforter+Brush&family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+  <link id="heading-font" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap" media="all" />
+  <style>
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+  </style>
+  <script>
+    window.tailwind.config = {
+      "darkMode": "class",
+      "theme": {
+        "fontFamily": {
+          "heading": ["DM Sans", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "\"Segoe UI\"", "Roboto", "\"Helvetica Neue\"", "Arial", "\"Noto Sans\"", "sans-serif", "\"Apple Color Emoji\"", "\"Segoe UI Emoji\"", "\"Segoe UI Symbol\"", "\"Noto Color Emoji\""],
+          "body": ["DM Sans", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "\"Segoe UI\"", "Roboto", "\"Helvetica Neue\"", "Arial", "\"Noto Sans\"", "sans-serif", "\"Apple Color Emoji\"", "\"Segoe UI Emoji\"", "\"Segoe UI Symbol\"", "\"Noto Color Emoji\""]
+        },
+        "extend": {
+          "borderRadius": {
+            "global": "5px"
+          },
+          "colors": {
+            "primary": {
+              "50": "#f8f5ff",
+              "100": "#eee6fe",
+              "200": "#ddcefd",
+              "300": "#c1a6fc",
+              "400": "#844df9",
+              "500": "#4d07e4",
+              "600": "#3705a3",
+              "700": "#280477",
+              "800": "#170245",
+              "900": "#0c0123",
+              "950": "#070114",
+              "DEFAULT": "#570df8"
+            },
+            "secondary": {
+              "50": "#fff5fd",
+              "100": "#ffe6f9",
+              "200": "#fecdf3",
+              "300": "#fea4e9",
+              "400": "#fd49d3",
+              "500": "#e802b3",
+              "600": "#a70280",
+              "700": "#79015d",
+              "800": "#470136",
+              "900": "#23001b",
+              "950": "#140010",
+              "DEFAULT": "#f002b8"
+            }
+          }
+        }
+      },
+      "plugins": [window.tailwind.plugin.withOptions(({
+        prefix = "ui"
+      } = {}) => {
+        return ({
+          addVariant
+        }) => {
+          for (let state of ["open", "checked", "selected", "active", "disabled"]) {
+            addVariant(`${prefix}-${state}`, [
+              `&[data-headlessui-state~="${state}"]`,
+              `:where([data-headlessui-state~="${state}"]) &`,
+            ]);
+
+            addVariant(`${prefix}-not-${state}`, [
+              `&[data-headlessui-state]:not([data-headlessui-state~="${state}"])`,
+              `:where([data-headlessui-state]:not([data-headlessui-state~="${state}"])) &:not([data-headlessui-state])`,
+            ]);
+          }
+        };
+      }), ]
+    };
+  </script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+
+<body id="top" x-data="{'openDialogId': ''}" x-on:keydown.escape="openDialogId=''" class="font-body antialiased h-full font-body antialiased text-[#000000] bg-[#fcfcfc] dark:text-[#ffffff] dark:bg-[#031022]">
+  <!-- HEADER -->
+
+  <header class=" header" data-header>
+    <div class="container">
+
+      <a href="#">
+        <h1 class="logo">AVERYMO</h1>
+      </a>
+
+
+      <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
+        <ion-icon name="menu-outline" class="open"></ion-icon>
+        <ion-icon name="close-outline" class="close"></ion-icon>
+      </button>
+
+      <nav class="navbar">
+        <ul class="navbar-list">
+          <li>
+            <a href="#" class="navbar-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link">Pages</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link">Services</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link">Insights</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link">Shop</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link">Elements</a>
+          </li>
+        </ul>
+
+        <a href="#" class="btn btn-secondary">Get in Touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <section class="section hero bg-slate-50" style="
+            background-image: url('./assets/images/hero-bg-bottom.jpg')
+              url('./assets/images/hero-bg-top.png');
+          ">
+        <div class="container">
+
+
+          <div class="hero-content">
+
+
+            <h2 class="hero-title">
+              Giving my Best For Your Sucess.
+            </h2>
+
+            <p class="hero-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel nisi luctus, bibendum augue vitae, rutrum lorem.
+            </p>
+
+
+            <div class="btn-group">
+              <a href="#" class="btn btn-primary">Contact Us</a>
+
+              <a href="#" class="btn btn-outline">Learn More</a>
+            </div>
+          </div>
+
+          <figure class="hero-banner">
+            <img src="./assets/images/hero-banner.png" width="" height="812" loading="lazy" alt="hero banner" class="w-100" />
+          </figure>
+        </div>
+      </section>
+
+
+
+
+
+      <!--
+          - #Services
+        -->
+      <section class="services section-bg" id="services">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-lg-4">
+              <header class="section-header">
+                <h3>Best Quality Services For Your Business</h3>
+              </header>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="box">
+                <div class="icon" style="background: #000">
+                  <i class="fa fa-clipboard service-icon" style="color: #c59c35"></i>
+                </div>
+                <h4 class="title"><a href="">Government Compliance</a></h4>
+                <p class="description">
+                  Laudem latine persequeris id sed, ex fabulas delectus quo.
+                  No vel partiendo abhorreant vituperatoribus.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="box">
+                <div class="icon" style="background: #000">
+                  <i class="fa fa-chart-bar service-icon" style="color: #c59c35"></i>
+                </div>
+
+                <h4 class="title">
+                  <a href="">Business Growth Strategies</a>
+                </h4>
+
+                <p class="description">
+                  Laudem latine persequeris id sed, ex fabulas delectus quo.
+                  No vel partiendo abhorreant vituperatoribus.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-4">
+              <div class="box">
+                <div class="icon" style="background: #000">
+                  <i class="fa fa-briefcase service-icon" style="color: #c59c35"></i>
+                </div>
+
+                <h4 class="title">
+                  <a href="">Startup Funding Assistance</a>
+                </h4>
+
+                <p class="description">
+                  Laudem latine persequeris id sed, ex fabulas delectus quo.
+                  No vel partiendo abhorreant vituperatoribus.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="box">
+                <div class="icon" style="background: #000">
+                  <i class="fa fa-clipboard service-icon" style="color: #c59c35"></i>
+                </div>
+
+                <h4 class="title"><a href="">Government Compliance</a></h4>
+
+                <p class="description">
+                  Laudem latine persequeris id sed, ex fabulas delectus quo.
+                  No vel partiendo abhorreant vituperatoribus.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="box">
+                <div class="icon" style="background: #000">
+                  <i class="fa fa-chart-bar service-icon" style="color: #c59c35"></i>
+                </div>
+
+                <h4 class="title">
+                  <a href="">Business Growth Strategies</a>
+                </h4>
+
+                <p class="description">
+                  Laudem latine persequeris id sed, ex fabulas delectus quo.
+                  No vel partiendo abhorreant vituperatoribus.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="my-10 bg-[#f7f7f7] px-40">
+        <div class="flex">
+          <div class="mr-20">
+            <img class="w-[60rem]" src="./assets/images/section.png" loading="lazy" />
+          </div>
+          <div class="pt-20 w-[40%]">
+            <p class="text-7xl font-bold">
+              We Help You See the World Differently
+            </p>
+            <p class="description py-8"> Laudem latine persequeris id sed, ex fabulas delectus quo.
+              No vel partiendo abhorreant vituperatoribus.</p>
+            <div class="flex">
+              <button class="px-10 bg-[#F3774A] text-white hover:cursor-pointer hover:shadow-lg font-bold py-2 rounded">
+                Overview
+              </button>
+              <button class="bg-gray-300 hover:bg-[#F3774A] text-black hover:cursor-pointer hover:shadow-lg font-bold py-2 px-10 mx-2 rounded">
+                Our People
+              </button>
+              <button class="bg-gray-300 hover:bg-[#F3774A] text-black hover:cursor-pointer hover:shadow-lg font-bold py-2 px-10 rounded">
+                Our Value
+              </button>
+            </div>
+            <p class="text-md py-8"> Laudem latine persequeris id sed, ex fabulas delectus quo.
+              No vel partiendo abhorreant vituperatoribus.Laudem latine persequeris id sed, ex fabulas delectus quo.
+              No vel partiendo abhorreant vituperatoribus.Laudem latine persequeris id sed, ex fabulas delectus quo.
+              No vel partiendo abhorreant vituperatoribus.</p>
+            <div class="flex pt-6">
+              <img class="w-28 h-20" src="./assets/images/sign.png" loading="lazy" />
+              <p>
+                <span class="text-2xl font-bold">Setven Maddedn</span>
+                <span class="text-md">CEO at XYZ</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-16 px-40">
+        <p class="text-center text-7xl font-bold">History of Our Firm</p>
+        <p class="description text-center py-4"> Laudem latine persequeris id sed, ex fabulas delectus quo.
+          <br />No vel partiendo abhorreant vituperatoribus.
+        </p>
+        <div class="container mx-auto">
+          <div class="timeline">
+            <div class="arrow arrow-left">&#8249;</div>
+            <div class="arrow arrow-right">&#8250;</div>
+            <div class="flex justify-around">
+              <div class="text-gray-500">1990</div>
+              <div class="text-[#F3774A] text-3xl">2000</div>
+              <div class="text-gray-500">2010</div>
+              <div class="text-gray-500">2020</div>
+            </div>
+            <div class="flex justify-around pt-4">
+              <div class="bg-[#F3774A] z-10 rounded-full w-6 h-6">
+                .
+              </div>
+              <div class="bg-[#F3774A] z-10 rounded-full w-6 h-6">
+                .
+              </div>
+              <div class="bg-gray-500 z-10 rounded-full w-6 h-6">
+                .
+              </div>
+              <div class="bg-gray-500 z-10 rounded-full w-6 h-6">
+                .
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex px-60 pt-20">
+          <div class="mr-20">
+            <img class="w-[50rem]" src="./assets/images/about.png" loading="lazy" />
+          </div>
+          <div class="w-[45%]">
+            <p class="text-5xl font-bold">
+              Our Roots go back to upto 20 years in the early days
+            </p>
+            <p class="description py-8"> Laudem latine persequeris id sed, ex fabulas delectus quo.
+              No vel partiendo abhorreant vituperatoribus.Laudem latine persequeris id sed, ex fabulas delectus quo.
+              No vel partiendo abhorreant vituperatoribus.
+            </p>
+            <div>
+
+              <div class="flex">
+                <div class="border-2 border-[#F3774A] text-center text-xl text-[#F3774A] w-10 px-4 h-10 items-center pt-1.5 rounded-full">•</div>
+                <p class="ml-10 description">Laudem latine persequeris id sed, ex fabulas delectus quo.
+                  No vel partiendo abhorreant vituperatoribus.</p>
+              </div>
+              <div class="flex my-10">
+                <div class="border-2 border-[#F3774A] text-center text-xl text-[#F3774A] w-10 px-4 h-10 items-center pt-1.5 rounded-full">•</div>
+                <p class="ml-10 description">Laudem latine persequeris id sed, ex fabulas delectus quo.
+                  No vel partiendo abhorreant vituperatoribus.</p>
+              </div>
+              <div class="flex">
+                <div class="border-2 border-[#F3774A] text-center text-xl text-[#F3774A] w-10 px-4 h-10 items-center pt-1.5 rounded-full">•</div>
+                <p class="ml-10 description">Laudem latine persequeris id sed, ex fabulas delectus quo.
+                  No vel partiendo abhorreant vituperatoribus.</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section about">
+        <div class="container">
+          <div class="about-content">
+            <p class="section-subtitle"></p>
+
+            <h2 class="h2 section-title">
+              Let Us Be Part Of Your Sucess Story<br>
+            </h2>
+
+            <p class="about-text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros, iaculis sit amet ullamcorper ac, dapibus et magna.
+            </p>
+
+            <ul class="pt-16 about-list">
+              <li class="about-item ">
+                <div class="about-item-content">
+                  <div class="flex about-item-icon">
+                    <ion-icon class="pt-4 pr-2" name="compass"></ion-icon>
+                    <h3 class="h3 about-item-title"> Audit and Assurance</h3>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
+                    <div class="bg-[#F3774A] h-4 rounded-full" style="width: 26%"></div>
+                  </div>
+
+                </div>
+              </li>
+              <li class="about-item py-10">
+                <div class="about-item-content">
+                  <div class="flex about-item-icon">
+                    <ion-icon class="pt-4 pr-2" name="compass"></ion-icon>
+                    <h3 class="h3 about-item-title">Legal Managed Service</h3>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
+                    <div class="bg-[#F3774A] h-4 rounded-full" style="width: 46%"></div>
+                  </div>
+                </div>
+              </li>
+              <li class="about-item">
+                <div class="about-item-content">
+                  <div class="flex about-item-icon">
+                    <ion-icon class="pt-4 pr-2" name="compass"></ion-icon>
+                    <h3 class="h3 about-item-title">Financial Advisory</h3>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
+                    <div class="bg-[#F3774A] h-4 rounded-full" style="width: 16%"></div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <br>
+            <a href="#" class="btn btn-primary text-white hover:bg-gray-700">Contact Now</a>
+          </div>
+
+          <figure class="about-banner">
+            <img src="./assets/images/about-banner.png" width="756" height="842" loading="lazy" alt="" class="w-100" />
+          </figure>
+        </div>
+      </section>
+
+
+      <section class="px-60 py-20 bg-[#f7f7f7]">
+        <div class="flex justify-between py-10">
+          <div>
+            <h2 class="text-left text-5xl font-bold pt-10">How have we impacted our <br />clients</h2>
+          </div>
+          <div>
+            <p class="about-text text-left pt-4 pb-10">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros,<br /> iaculis sit amet ullamcorper ac, dapibus et magna.
+            </p>
+          </div>
+        </div>
+        <div class="flex justify-between">
+          <div class="relative">
+            <img src="./assets/images/clients.png" loading="lazy" alt="" class="w-[40rem] " />
+            <div class="absolute bg-[#F3774A] bottom-6 left-6 rounded hover:cursor-pointer">
+              <p class="px-6 pt-6 text-white text-2xl">Amaglam Electronics</p>
+              <p class="px-6 pb-6 text-sm text-white">Read Case Study</p>
+            </div>
+          </div>
+          <div>
+            <img src="./assets/images/clients.png" loading="lazy" alt="" class="w-[40rem]" />
+          </div>
+          <div>
+            <img src="./assets/images/clients.png" loading="lazy" alt="" class="w-[40rem]" />
+          </div>
+        </div>
+        <div class="flex justify-center py-20">
+          <div class="border-2 border-b-black w-20 hover:cursor-pointer "></div>
+          <div class="border-4 border-b-[#F3774A] w-20 hover:cursor-pointer"></div>
+          <div class="border-2 border-b-black w-20 hover:cursor-pointer"></div>
+        </div>
+      </section>
+
+
+
+
+      <section class="px-60 py-20">
+        <div class="flex w-full">
+          <div class="w-1/2">
+            <h2 class="text-left text-7xl font-bold py-10">What sets our <br />Company Apart</h2>
+            <p class="about-text text-left pt-4 pb-10">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros, iaculis sit amet ullamcorper ac, dapibus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros, iaculis sit amet ullamcorper ac, dapibus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros, iaculis sit amet ullamcorper ac, dapibus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros, iaculis sit amet ullamcorper ac, dapibus et magna. Lorem ipsum dolor sit amet, <br /><br />consectetur adipiscing elit. Etiam orci eros, iaculis sit amet ullamcorper ac, dapibus et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros, iaculis sit amet ullamcorper ac, dapibus et magna.
+            </p>
+            <a href="#" class="btn btn-primary text-white hover:bg-gray-700">Discover Now</a>
+          </div>
+          <div class="w-1/2 ml-20">
+            <div class="flex">
+              <div class="w-[40%]">
+                <div class="shadow-2xl px-16 py-20 rounded-lg mb-10">
+                  <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                  <p class="text-center text-7xl">780</p>
+                  <p class="text-center text-xl">Placements Per Year</p>
+                </div>
+                <div class="shadow-2xl px-16 py-20 rounded-lg">
+                  <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                  <p class="text-center text-7xl">97%</p>
+                  <p class="text-center text-xl">Placements Per Year</p>
+                </div>
+              </div>
+              <div class="w-[40%] ml-10 mt-16">
+                <div class="shadow-2xl px-16 py-20 rounded-lg mb-10">
+                  <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                  <p class="text-center text-7xl">52+</p>
+                  <p class="text-center text-xl">Placements Per Year</p>
+                </div>
+                <div class="shadow-2xl px-16 py-20 rounded-lg">
+                  <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                    </svg>
+                  </div>
+                  <p class="text-center text-7xl">+780</p>
+                  <p class="text-center text-xl">Placements Per Year</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section class="px-60 py-20">
+        <h2 class="text-center text-5xl font-bold pt-10">What our Customers Say</h2>
+        <p class="about-text text-center pt-4 pb-10">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros,<br /> iaculis sit amet ullamcorper ac, dapibus et magna.
+        </p>
+        <div class="py-20 w-full flex justify-between">
+          <div class="shadow-2xl w-[30%] p-10 rounded-lg filter blur-sm">
+            <div class="">
+              <div class="flex justify-between">
+                <div class="flex">
+                  <img class="h-20 w-20 rounded-full" src="./assets/images/author-avatar.png" />
+                  <span class="ml-10">
+                    <p>Raplh Edwards</p>
+                    <p>Marketing</p>
+                    <div class="flex">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+
+                    </div>
+                  </span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" viewBox="0 0 32 32" xml:space="preserve" class="w-20 h-20">
+                  <g>
+                    <g id="right_x5F_quote">
+                      <g>
+                        <path style="fill:#F3774A;" d="M0,4v12h8c0,4.41-3.586,8-8,8v4c6.617,0,12-5.383,12-12V4H0z" />
+                        <path style="fill:#F3774A;" d="M20,4v12h8c0,4.41-3.586,8-8,8v4c6.617,0,12-5.383,12-12V4H20z" />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <p class="pt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros,
+              iaculis sit amet ullamcorper ac, dapibus et magna.orem ipsum dolor sit amet</p>
+          </div>
+          <div class="shadow-2xl w-[30%] p-10 rounded-lg">
+            <div class="">
+              <div class="flex justify-between">
+                <div class="flex">
+                  <img class="h-20 w-20 rounded-full" src="./assets/images/author-avatar.png" />
+                  <span class="ml-10">
+                    <p>Raplh Edwards</p>
+                    <p>Marketing</p>
+                    <div class="flex">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+
+                    </div>
+                  </span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1q" viewBox="0 0 32 32" xml:space="preserve" class="w-20 h-20">
+                  <g>
+                    <g id="right_x5F_quote1">
+                      <g>
+                        <path style="fill:#F3774A;" d="M0,4v12h8c0,4.41-3.586,8-8,8v4c6.617,0,12-5.383,12-12V4H0z" />
+                        <path style="fill:#F3774A;" d="M20,4v12h8c0,4.41-3.586,8-8,8v4c6.617,0,12-5.383,12-12V4H20z" />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <p class="pt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros,
+              iaculis sit amet ullamcorper ac, dapibus et magna.orem ipsum dolor sit amet</p>
+          </div>
+          <div class="shadow-2xl w-[30%] p-10 rounded-lg filter blur-sm">
+            <div class="">
+              <div class="flex justify-between">
+                <div class="flex">
+                  <img class="h-20 w-20 rounded-full" src="./assets/images/author-avatar.png" />
+                  <span class="ml-10">
+                    <p>Raplh Edwards</p>
+                    <p>Marketing</p>
+                    <div class="flex">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                      </svg>
+
+                    </div>
+                  </span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1b" viewBox="0 0 32 32" xml:space="preserve" class="w-20 h-20">
+                  <g>
+                    <g id="right_x5F_quote2">
+                      <g>
+                        <path style="fill:#F3774A;" d="M0,4v12h8c0,4.41-3.586,8-8,8v4c6.617,0,12-5.383,12-12V4H0z" />
+                        <path style="fill:#F3774A;" d="M20,4v12h8c0,4.41-3.586,8-8,8v4c6.617,0,12-5.383,12-12V4H20z" />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <p class="pt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros,
+              iaculis sit amet ullamcorper ac, dapibus et magna.orem ipsum dolor sit amet</p>
+          </div>
+
+        </div>
+        <div class="flex justify-center">
+          <div class="border-2 border-b-black w-20 hover:cursor-pointer "></div>
+          <div class="border-4 border-b-[#F3774A] w-20 hover:cursor-pointer"></div>
+          <div class="border-2 border-b-black w-20 hover:cursor-pointer"></div>
+        </div>
+      </section>
+
+      <section class="px-60 py-20 bg-[#f7f7f7]">
+        <div class="flex justify-between">
+          <div>
+            <p class="text-left text-7xl font-bold">Discover our Members</p>
+            <p class="description text-left py-4"> Laudem latine persequeris id sed, ex fabulas delectus quo.
+              <br />No vel partiendo abhorreant vituperatoribus.
+            </p>
+          </div>
+          <div>
+            <button class="flex mt-16 px-10 bg-[#F3774A] text-white hover:cursor-pointer hover:shadow-lg font-bold py-2 rounded">
+              See All Members <ion-icon class="ml-2 pt-2" name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </div>
+        </div>
+        <div class="flex justify-around pt-10">
+          <div class="bg-white rounded">
+            <img class="w-[30rem]" src="./assets/images/member.png" width="756" height="842" loading="lazy" alt="" />
+            <div class="flex justify-between py-5 px-2">
+              <p>
+                <span class="text-2xl font-bold">Setven Maddedn</span>
+                <span class="text-md">CEO at XYZ</span>
+              </p>
+              <div class="bg-gray-300 w-10 h-10 p-2 rounded mt-4 mr-6 hover:cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M15.75 4.5a3 3 0 11.825 2.066l-8.421 4.679a3.002 3.002 0 010 1.51l8.421 4.679a3 3 0 11-.729 1.31l-8.421-4.678a3 3 0 110-4.132l8.421-4.679a3 3 0 01-.096-.755z" clip-rule="evenodd" />
+                </svg>
+              </div>
+            </div>
+
+          </div>
+          <div class="bg-white">
+            <img class="w-[30rem]" src="./assets/images/member.png" width="756" height="842" loading="lazy" alt="" />
+            <div class="flex justify-between py-5 px-2">
+              <p>
+                <span class="text-2xl font-bold">Setven Maddedn</span>
+                <span class="text-md">CEO at XYZ</span>
+              </p>
+              <div class="bg-gray-300 w-10 h-10 p-2 rounded mt-4 mr-6 hover:cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M15.75 4.5a3 3 0 11.825 2.066l-8.421 4.679a3.002 3.002 0 010 1.51l8.421 4.679a3 3 0 11-.729 1.31l-8.421-4.678a3 3 0 110-4.132l8.421-4.679a3 3 0 01-.096-.755z" clip-rule="evenodd" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white">
+            <img class="w-[30rem]" src="./assets/images/member.png" width="756" height="842" loading="lazy" alt="" />
+            <div class="flex justify-between py-5 px-2">
+              <p>
+                <span class="text-2xl font-bold">Setven Maddedn</span>
+                <span class="text-md">CEO at XYZ</span>
+              </p>
+              <div class="bg-gray-300 w-10 h-10 p-2 rounded mt-4 mr-6 hover:cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M15.75 4.5a3 3 0 11.825 2.066l-8.421 4.679a3.002 3.002 0 010 1.51l8.421 4.679a3 3 0 11-.729 1.31l-8.421-4.678a3 3 0 110-4.132l8.421-4.679a3 3 0 01-.096-.755z" clip-rule="evenodd" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="section blog">
+        <div class="container">
+          <h2 class="text-center text-5xl font-bold pt-10">Our Latest Thinking</h2>
+          <p class="about-text text-center pt-4 pb-10">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci eros,<br /> iaculis sit amet ullamcorper ac, dapibus et magna.
+          </p>
+          <ul class="blog-list">
+            <li>
+              <div class="blog-card">
+                <figure class="card-banner">
+                  <a href="#">
+                    <img src="./assets/images/popular-1.jpg" width="740" height="518" loading="lazy" alt="Lorem ipsulum donor sit" class="img-cover">
+                  </a>
+                  <span class="card-badge">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <time datetime="12-04">04 Dec</time>
+                  </span>
+                </figure>
+                <div class="card-content">
+                  <div class="card-wrapper">
+                    <div class="flex author-wrapper">
+                      <figure class="author-avatar">
+                        <img src="./assets/images/author-avatar.png" width="30" height="30" alt="Jony bristow">
+                      </figure>
+                      <div>
+                        <a href="#" class="ml-4 pt-1 font-semibold author-name">Jony bristow</a>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 class="card-title">
+                    <a href="#">
+                      orem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </a>
+                  </h3>
+                  <a href="#" class="flex btn-link">
+                    <span>Read More</span>
+                    <ion-icon class="ml-2 pt-2" name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                  </a>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+                <figure class="card-banner">
+                  <a href="#">
+                    <img src="./assets/images/blog-2.jpg" width="740" height="518" loading="lazy" alt="orem ipsum dolor sit amet, consectetur adipiscing elit." class="img-cover">
+                  </a>
+                  <span class="card-badge">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <time datetime="12-04">04 Dec</time>
+                  </span>
+                </figure>
+
+                <div class="card-content">
+                  <div class="card-wrapper">
+                    <div class="flex author-wrapper">
+                      <figure class="author-avatar">
+                        <img src="./assets/images/author-avatar.png" width="30" height="30" alt="Jony bristow">
+                      </figure>
+                      <div>
+                        <a href="#" class="ml-4 pt-1 font-semibold author-name">Jony bristow</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 class="card-title">
+                    <a href="#">
+                      orem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </a>
+                  </h3>
+                  <a href="#" class="flex btn-link">
+                    <span>Read More</span>
+                    <ion-icon class="ml-2 pt-2" name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                  </a>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="blog-card">
+                <figure class="card-banner">
+                  <a href="#">
+                    <img src="./assets/images/blog-3.jpg" width="740" height="518" loading="lazy" alt="A good traveler has no fixed plans and is not intent on arriving." class="img-cover">
+                  </a>
+                  <span class="card-badge">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <time datetime="12-04">04 Dec</time>
+                  </span>
+                </figure>
+
+                <div class="card-content">
+                  <div class="card-wrapper">
+                    <div class="flex author-wrapper">
+                      <figure class="author-avatar">
+                        <img src="./assets/images/author-avatar.png" width="30" height="30" alt="Jony bristow">
+                      </figure>
+                      <div>
+                        <a href="#" class="ml-4 pt-1 font-semibold author-name">Jony bristow</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 class="card-title">
+                    <a href="#">
+                      orem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </a>
+                  </h3>
+                  <a href="#" class="flex btn-link">
+                    <span>Read More</span>
+                    <ion-icon class="ml-2 pt-2" name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                  </a>
+
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer" style="background-image: url('./assets/images/footer-bg.jpg')">
+    <div class="container">
+      <div class="footer-top">
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title">Services</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Sales and Marketing</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Customer Experience</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Building Strategy</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Risk Advisory</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Tax Law Counselling</a>
+          </li>
+        </ul>
+
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title">Helpful Links</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Destination</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Supports</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Get in touch</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Contact Us</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Tax Law</a>
+          </li>
+        </ul>
+
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title">Quick links</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">About</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Contact</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Tours</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Booking</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Terms &amp; Conditions</a>
+          </li>
+        </ul>
+
+        <div class="footer-list">
+          <p class="footer-list-title">Get a newsletter</p>
+
+          <p class="newsletter-text">
+            For the latest deals and tips, travel no further than your inbox
+          </p>
+
+          <form action="" class="newsletter-form">
+            <input type="email" name="email" required placeholder="Email address" class="newsletter-input" />
+
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <a href="#" class="logo">AVERYMO</a>
+
+        <p class="copyright">
+          &copy; 2023 <a href="#" class="copyright-link">KYPTRONIX LLP</a>.
+          All Rights Reserved
+        </p>
+
+        <ul class="social-list">
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-google"></ion-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 
+    - #GO TO TOP
+  -->
+
+  <a href="#top" class="go-top" data-go-top aria-label="Go To Top">
+    <ion-icon name="chevron-up-outline"></ion-icon>
+  </a>
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
